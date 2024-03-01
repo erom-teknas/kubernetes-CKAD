@@ -1,0 +1,11 @@
+apiVersion: v1 #<string>
+kind: PersistentVolumeClaim #<string>
+metadata: #<Object>
+   name: pvc-demo #<string>
+spec: #<Object>
+   accessModes: 
+   - ReadWriteOnce #<[]string>
+   resources: #<Object>
+      requests: 
+        storage: 4Gi #<map[string]string>
+   storageClassName: normal #<string>
