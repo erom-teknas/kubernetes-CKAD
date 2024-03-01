@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  creationTimestamp: null
+  name: job-demo
+spec:
+  completions: 3
+  parallelism: 6
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers:
+      - image: busybox
+        name: job-demo
+        command: ["sh", "-c", "date"]
+        resources: {}
+      restartPolicy: Never
+status: {}

@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-02-09T17:54:55Z"
+  labels:
+    run: get-details-configenv-from
+  name: get-details-configenv-from
+  namespace: default
+  resourceVersion: "26768"
+  uid: a6c0f6c0-42e6-45af-b6e1-4edd30cef076
+spec:
+  containers:
+  - args:
+    - $(DB_URL)
+    - $(REDIS_URL)
+    envFrom:
+    - configMapRef:
+        name: multi-ways-config
+    image: get-details:1.5
+    imagePullPolicy: IfNotPresent
+    name: get-details-configenv-from
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-6zf6j
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-6zf6j
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2024-02-09T17:54:55Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2024-02-09T17:54:57Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2024-02-09T17:54:57Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2024-02-09T17:54:55Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://b904345487fc2ff97b3e1facb7c5a6df7575491d4c552a4dbdcfb4e20747d338
+    image: get-details:1.5
+    imageID: docker://sha256:5854013ab8c9dfbc39c18f5fa24896f84ac3c091f90e2711807aa64ea85714db
+    lastState: {}
+    name: get-details-configenv-from
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2024-02-09T17:54:56Z"
+  hostIP: 192.168.49.2
+  phase: Running
+  podIP: 172.17.0.14
+  podIPs:
+  - ip: 172.17.0.14
+  qosClass: BestEffort
+  startTime: "2024-02-09T17:54:55Z"

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: get-details-configsingle-var
+  name: get-details-configsingle-var
+spec:
+  containers:
+  - image: get-details:1.5
+    name: get-details-configsingle-var
+    args:
+      - "$(DB_URL)"
+      - "$(REDIS_URL)"
+    env:
+      - name: DB_URL
+        valueFrom:
+          configMapKeyRef:
+            name: multi-ways-config
+            key: DB_URL
+      - name: REDIS_URL
+        valueFrom:
+          configMapKeyRef:
+            key: REDIS_URL
+            name: multi-ways-config
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: node-affinity-deployment
+  name: node-affinity-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: node-affinity-deployment
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: node-affinity-deployment
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+              - key: "tier"
+                operator: "In"
+                values:
+                - "only-frontend"
+            weight: 80
+status: {}

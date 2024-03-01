@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: taints-tolerations-nginx
+  name: taints-tolerations-nginx
+spec:
+  containers:
+  - image: nginx
+    name: taints-tolerations-nginx
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  tolerations:
+    #kubectl taint node minikube-03 app=green:NoExecute
+  - key: "app"
+    operator: "Equal"
+    value: "green"
+    effect: "NoExecute"
+status: {}
