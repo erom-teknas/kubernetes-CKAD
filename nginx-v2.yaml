@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: can-nginx
+    version: v2
+  name: nginx-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-v2
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        version: v2
+        app: nginx-v2
+        load: share
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}

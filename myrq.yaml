@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  creationTimestamp: null
+  name: myrq
+spec:
+  hard:
+    CPU: "1"
+    memory: 1Gi
+    pods: "2"
+status: {}
